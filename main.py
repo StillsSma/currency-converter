@@ -20,12 +20,13 @@ class Money:
         return self.value != other.value
 
     def __add__(self, other):
-        return self.number + other.number * Money.exchange[other.currency]
-
+        return Money(self.number + other.number * Money.exchange[other.currency], self.currency)
     def __sub__(self, other):
         return self.number - other.number * Money.exchange[other.currency]
+    def __mul__(self, other):
+        return self.number * (other.number * Money.exchange[other.currency])
 
-    def __str__(self):
-        return "Value is {}".format(self)
 
-print(Money(100, "USD") - Money(56, "EUR"))
+print(Money(100.4, "USD") + Money(56.6, "EUR"))
+
+print ((Money(1, "USD") + Money(1, "EUR") + Money(1, "BTC") + Money(1, "USD")).number)
